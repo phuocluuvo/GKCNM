@@ -10,8 +10,8 @@ const upload = multer();
 //   if (data) console.log(JSON.stringify(data.CORSRules));
 // });
 AWS.config = new AWS.Config({
-  accessKeyId: "AKIASNNOYGR3SVA7TBEM",
-  secretAccessKey: "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",
+  accessKeyId: "",
+  secretAccessKey: "",
   region: "us-east-1",
 });
 
