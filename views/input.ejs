@@ -16,14 +16,16 @@
         crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
-<script>
-    function Submit(){
+<script> 
+   
+    function Submit(){ 
       let check = document.forms["inputForm"]["ISBN"].value;
-        
         if(!/^((\d{3})-*){3}$/.test(check)){
             alert("Please enter a valid number");
             return false;
         }
+       
+       
     }
 </script>
 <body>
@@ -31,12 +33,12 @@
         <h1 class="text-lg-center">PUBLISHER ABZ</h1>
         <form name="inputForm" class="form" action="/" onsubmit="return Submit()"  method="post" enctype="multipart/form-data"
             style="display: flex; flex-direction: column; width: 250px; margin: auto;">
-            
             <input class="input-group" type="text" name="tenBaiBao" placeholder="Enter News Name" required="required" />
             <input type="text" name="tenNhomTacGia" placeholder="Enter Writers Group Name" required="required" />
             <input type="text" name="ISBN" placeholder="Enter IBSN" required="required" />
-            <input type="number" name="soTrang" placeholder="Enter Number of News Pages" min="0" required="required" />
-            <input type="number" name="NXB" placeholder="Enter the year" required="required" min="1900" />
+            <input type="number" name="soTrang" placeholder="Enter Number of News Pages" min="0" required="required"/>
+            <input type="number" id="NXB" name="NXB" placeholder="Enter the year" required="required" min="1900"
+            max="<%=new Date().getFullYear()%>" />
             <input type="submit" value="Submit" />
            
         </form>

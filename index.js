@@ -9,7 +9,6 @@ const upload = multer();
 //   if (err) console.log(err);
 //   if (data) console.log(JSON.stringify(data.CORSRules));
 // });
-
 AWS.config = new AWS.Config({
   accessKeyId: "AKIASNNOYGR3SVA7TBEM",
   secretAccessKey: "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",
@@ -21,8 +20,6 @@ app.set("view engine", "ejs");
 app.set("views", "./views");
 const tbl_Name = "BaiBao_OnThi";
 const docClient = new AWS.DynamoDB.DocumentClient();
-
-let numsBaiBao = 0;
 
 app.get("/", (req, res) => {
   return res.render("input");
@@ -38,7 +35,6 @@ app.get("/list", (req, res) => {
       return;
     }
     if (data) {
-      numsBaiBao = data.Count;
       return res.render("index", { baiBao: data.Items });
     }
   });
@@ -46,24 +42,36 @@ app.get("/list", (req, res) => {
 
 app.post("/", upload.fields([]), (req, res) => {
   const { tenBaiBao, soTrang, tenNhomTacGia, ISBN, NXB } = req.body;
-  numsBaiBao++;
-  const p = {
-    TableName: tbl_Name,
-    Item: {
-      maBao: numsBaiBao,
-      soTrang: soTrang,
-      tenBaiBao: tenBaiBao,
-      tenNhomTacGia: tenNhomTacGia,
-      ISBN: ISBN,
-      NXB: NXB,
+  docClient.scan(
+    {
+      TableName: tbl_Name,
     },
-  };
-  docClient.put(p, (err, data) => {
-    if (err) {
-      res.send("Internal Server Error:" + err);
-      return;
-    } else return res.redirect("/list");
-  });
+    (err, data) => {
+      if (err) {
+        res.send("Internal Server Error");
+        return;
+      }
+      if (data) {
+        const p = {
+          TableName: tbl_Name,
+          Item: {
+            maBao: data.Items.length + 1,
+            soTrang: soTrang,
+            tenBaiBao: tenBaiBao,
+            tenNhomTacGia: tenNhomTacGia,
+            ISBN: ISBN,
+            NXB: NXB,
+          },
+        };
+        docClient.put(p, (err, data) => {
+          if (err) {
+            res.send("Internal Server Error:" + err);
+            return;
+          } else return res.redirect("/list");
+        });
+      }
+    }
+  );
 });
 app.post("/delete", upload.fields([]), (req, res) => {
   const listItems = Object.keys(req.body);
