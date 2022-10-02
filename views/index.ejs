@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+
+<body>
+   
+    <div class="container"> <a href="/" class="btn-link text-dark">Back</a>
+        <h1>PUBLISHER ABZ</h1>
+        
+        <form action="/delete" method="post" enctype="multipart/form-data">
+            <h3 class="">List Newpaper</h3>
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <table aria-details="div" class="table table-hover">
+                <thead class="thead-dark">
+                    <tr class="col">
+                        <th scope="col">STT</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Group Writers</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Pages</th>
+                        <th scope="col">P.Year</th>
+                        <th scope="col">Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i = 0; i < baiBao.length; i++){%>
+                        <tr>
+                            <td>
+                                <%=i+1%>
+                            </td>
+                            <td>
+                                <%=baiBao[i].tenBaiBao%>
+                            </td>
+                            <td>
+                                <%=baiBao[i].tenNhomTacGia%>
+                            </td>
+                            <td>
+                                <%=baiBao[i].ISBN%>
+                            </td>
+                            <td>
+                                <%=baiBao[i].soTrang%>
+                            </td>
+                            <td>
+                                <%=baiBao[i].NXB%>
+                            </td>
+                            <td>
+                                <input name="<%=baiBao[i].maBao%>" type="checkbox" />
+                            </td>
+                        </tr>
+                        <%}%>
+            </table>
+            </tbody>
+        </form>
+    </div>
+
+</body>
+
+</html>
